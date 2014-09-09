@@ -1,0 +1,58 @@
+<html ng-app="tube">
+  <head>
+    <title>Tube</title>
+
+    <link rel="stylesheet" href="css/mice.min.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <script src="js/angularjs/angular.min.js"></script>
+    <script src="js/angularjs/angular-route.js"></script>
+
+  </head>
+  <body>
+
+    <section id="main" class="container">
+
+      <div class="grid three">
+
+        <div class="column two">
+          <div id="tube">
+            <div ng-view></div>
+          </div>
+        </div>
+
+        <div class="column">
+          <div id="sidebar">
+
+            <div ng-controller="DeviceCtrl">
+              <div id="device-wrap">
+                <ul class="tabs">
+                  <li class="active"><a href="#device">设备</a></li>
+                </ul>
+                <div class="tab-content">
+                  <div class="group">
+                    <a ng-repeat="device in devices" href="#" ng-click="getInfo(device.udid)">
+                      <i class="icon video-camera"></i> <span ng-bind="device.udid"></span>
+                      <span class="righted label {{device.state}}" ng-bind="device.state"></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div id="device-action" class="slide-animate" ng-include="'templates/devices/show.html'" ng-show="current_device"></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </body>
+    <script src="js/module/angular-utf8-base64.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/factories/token.js"></script>
+    <script src="js/factories/device.js"></script>
+    <script src="js/controllers/device.js"></script>
+    <script src="js/controllers/device_detail.js"></script>
+</html>

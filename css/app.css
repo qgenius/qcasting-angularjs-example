@@ -1,0 +1,52 @@
+html, body{ height: 100%; }
+
+body{
+  background: #000 url(../img/stage.jpg) no-repeat center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#main{
+  margin: 65px auto 20px;
+}
+
+#tube{
+  /*width: 960px;*/
+  height: 540px;
+  border: 3px solid #FFF;
+
+  background: #FFF url(../img/television-test-screen-no-signal-vector-illustration.jpg) center no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  -webkit-box-shadow: 3px 3px 28px rgba(0, 0, 0, 0.8);
+  -moz-box-shadow: 3px 3px 28px rgba(0, 0, 0, 0.8);
+  box-shadow: 3px 3px 28px rgba(0, 0, 0, 0.8);
+}
+
+#sidebar{
+  height: 540px;
+  overflow: auto;
+  padding: 5px;
+  background: #FFF;
+}
+
+#live-wrap{
+
+}
+
+#vod-wrap{
+
+}
+
+#vod-list{
+
+}
+
+.register{ background-color: #0085f0}
+.connect{ background-color: #81C735}
+.stop{ }
