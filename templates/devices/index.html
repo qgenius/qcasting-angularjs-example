@@ -1,0 +1,27 @@
+<div class="grid three">
+
+  <div class="column two">
+    <div id="tube"></div>
+  </div>
+
+  <div class="column">
+    <div id="sidebar">
+
+      <div id="device-wrap">
+        <ul class="tabs">
+          <li class="active"><a href="#device"><i class="icon home"></i>&nbsp;</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="group">
+            <a ng-repeat="device in devices" ng-href="#/devices/{{device.udid}}" ng-click="getInfo(device.udid)">
+              <i class="icon video-camera"></i> <span ng-bind="device.udid"></span>
+              <span class="righted label {{device.state}}" ng-bind="device.state"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

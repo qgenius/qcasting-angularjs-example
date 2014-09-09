@@ -2,31 +2,77 @@
 
 var tube = angular.module("tube");
 
-tube.controller('DeviceDetailCtrl', ['$scope', '$filter', 'tokenFactory', 'deviceFactory', 'servicesConfig',
-  function($scope, $filter, tokenFactory, deviceFactory, servicesConfig){
+tube.controller('DeviceDetailCtrl', ['$scope', '$routeParams', '$sce', 'tokenFactory', 'deviceFactory', 'servicesConfig',
+  function($scope, $routeParams, $sce, tokenFactory, deviceFactory, servicesConfig){
 
-  $scope.devices = [];
+  // server: vod 点播, live 直播
+  function addPlayer(server, url, type, title){
 
-  // tokenFactory.getToken.success(function(token){
-  //   deviceFactory.devices(token.access_token).success(function(data) {
+    console.log(server, url, type, title);
 
-  //     var devices = data['devices'];
+    var script = document.createElement('script');
+        script.type = "text/javascript";
+        script.src = servicesConfig.playerPath;
 
-  //     for (var i in devices) {
+    var player = document.getElementById('player');
+        player.innerHTML = '';
+        player.appendChild(script);
 
-  //       var udid = devices[i];
+    script.onload = function () {
+      SewisePlayer.setup({
+        server: server,
+        type: type,
+        streamurl: url,
+        videourl: url,
+        starttime: 0,
+        lang: "zh_CN",
+        title: (title || ""),
+        buffer: 5,
+        claritybutton: "disable",
+        skin: (server == "vod" ? "vodWhite" : "liveWhite"),
+        logo: "/img/qiniu-48x35.png",
+        // poster: "images/television-test-screen-no-signal-vector-illustration.jpg",
+        // topbardisplay: "disable",
+        playername: "Qiniu Multimedia Player",
+        copyright: "Copyright (C) 2014 qiniu.com"
+      });
+    }
+  }
 
-  //       deviceFactory.info(udid, token.access_token).success(function(data) {
 
-  //         var device = data;
-  //             device['udid'] = udid;
+  tokenFactory.getToken.success(function(token){
+    deviceFactory.info(token.access_token, $routeParams.udid).success(function(data) {
+      var device = data;
+          device['udid'] = $routeParams.udid;
+      $scope.device = device;
+    });
+  });
 
-  //         $scope.devices.push(device)
 
-  //       });
-  //     };
+  $scope.push = function(udid){
+    console.log(udid)
+  }
 
-  //   });
-  // });
+
+  $scope.live_rtmp = function(url){
+    addPlayer('live', url, 'rtmp', 'RTMP live');
+  }
+
+  $scope.live_hls = function(url){
+    addPlayer('vod', url, 'm3u8', 'M3U8 live');
+  }
+
+  $scope.vodM3U8 = function(udid, starttime, endtime){
+
+    tokenFactory.getToken.success(function(token){
+      deviceFactory.shift_play_address(token.access_token, udid, starttime, endtime).success(function(data) {
+
+        var url = data['url'];
+
+        addPlayer('vod', url, 'm3u8', 'M3U8 vod');
+
+      });
+    });
+  }
 
 }]);

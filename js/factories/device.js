@@ -16,13 +16,9 @@ tube.factory('deviceFactory', ['$http', 'base64', 'servicesConfig', function($ht
     },
 
     shift_play_address: function(token, udid, starttime, endtime){
-
-      console.log(token, udid, starttime, endtime)
-
-      var qurl = url + '/api/v1/devices/' + udid + '/actions/execute';
-      var data = {'cmd': 'play', 'data': {'starttime' : starttime, 'endtime' : endtime}};
-      var config = { headers: {'Authorization' : ' bearer ' + token} };
-
+      var qurl = url + '/' + udid + '/actions/execute',
+          data = {'cmd': 'play', 'data': {'starttime' : starttime, 'endtime' : endtime}},
+          config = { headers: {'Authorization' : ' bearer ' + token} };
       return $http.post(qurl, data, config);
     }
   };

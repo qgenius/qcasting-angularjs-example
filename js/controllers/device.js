@@ -36,31 +36,4 @@ tube.controller('DeviceCtrl', ['$scope', '$routeParams', 'tokenFactory', 'device
     $scope.current_device = getById($scope.devices, udid);
   }
 
-  $scope.push = function(udid){
-    console.log(udid);
-  }
-
-  $scope.live_rtmp = function(rtmp){
-    console.log(rtmp);
-  }
-
-  $scope.live_hls = function(hls){
-    console.log(hls);
-  }
-
-  $scope.vodM3U8 = function(udid, starttime, endtime){
-    console.log(udid, starttime, endtime);
-
-    tokenFactory.getToken.success(function(token){
-      deviceFactory.shift_play_address(token.access_token, udid, starttime, endtime).success(function(data) {
-
-        console.log(data);
-
-      }).error(function(){
-        console.log('error')
-      });
-    });
-
-  }
-
 }]);
