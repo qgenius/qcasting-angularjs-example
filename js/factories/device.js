@@ -20,6 +20,20 @@ tube.factory('deviceFactory', ['$http', 'base64', 'servicesConfig', function($ht
           data = {'cmd': 'play', 'data': {'starttime' : starttime, 'endtime' : endtime}},
           config = { headers: {'Authorization' : ' bearer ' + token} };
       return $http.post(qurl, data, config);
+    },
+
+    push_address: function(token, udid){
+      var qurl = url + '/' + udid + '/actions/execute',
+          data = {'cmd': 'push', 'data': {'protocol' : 'RTMP'}},
+          config = { headers: {'Authorization' : ' bearer ' + token} };
+      return $http.post(qurl, data, config);
+    },
+
+    pushStart: function(token, url){
+      var qurl = servicesConfig.demoService + '/api/v1/_demo/devices/demo/actions/push',
+          data = {'url': url},
+          config = { headers: {'Authorization' : ' bearer ' + token} };
+      return $http.post(qurl, data, config);
     }
   };
 

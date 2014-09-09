@@ -40,17 +40,28 @@ tube.controller('DeviceDetailCtrl', ['$scope', '$routeParams', '$sce', 'tokenFac
   }
 
 
-  tokenFactory.getToken.success(function(token){
-    deviceFactory.info(token.access_token, $routeParams.udid).success(function(data) {
-      var device = data;
-          device['udid'] = $routeParams.udid;
-      $scope.device = device;
+  var init = function(){
+    tokenFactory.getToken.success(function(token){
+      deviceFactory.info(token.access_token, $routeParams.udid).success(function(data) {
+        var device = data;
+            device['udid'] = $routeParams.udid;
+        $scope.device = device;
+      });
     });
-  });
+  }
+
+  init();
 
 
   $scope.push = function(udid){
-    console.log(udid)
+    tokenFactory.getToken.success(function(token){
+      deviceFactory.push_address(token.access_token, udid).success(function(data) {
+        deviceFactory.pushStart(token.access_token, data['url']).success(function(data) {
+          console.log(data);
+          init();
+        });
+      });
+    });
   }
 
 
@@ -58,19 +69,16 @@ tube.controller('DeviceDetailCtrl', ['$scope', '$routeParams', '$sce', 'tokenFac
     addPlayer('live', url, 'rtmp', 'RTMP live');
   }
 
+
   $scope.live_hls = function(url){
     addPlayer('vod', url, 'm3u8', 'M3U8 live');
   }
 
-  $scope.vodM3U8 = function(udid, starttime, endtime){
 
+  $scope.vodM3U8 = function(udid, starttime, endtime){
     tokenFactory.getToken.success(function(token){
       deviceFactory.shift_play_address(token.access_token, udid, starttime, endtime).success(function(data) {
-
-        var url = data['url'];
-
-        addPlayer('vod', url, 'm3u8', 'M3U8 vod');
-
+        addPlayer('vod', data['url'], 'm3u8', 'M3U8 vod');
       });
     });
   }
