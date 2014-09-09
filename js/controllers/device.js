@@ -21,7 +21,7 @@ tube.controller('DeviceCtrl', ['$scope', '$routeParams', 'tokenFactory', 'device
       var devices = data['devices'];
       for (var i in devices) {
         var udid = devices[i];
-        deviceFactory.info(udid, token.access_token).success(function(data) {
+        deviceFactory.info(token.access_token, udid).success(function(data) {
           var device = data;
               device['udid'] = udid;
           $scope.devices.push(device)
@@ -48,8 +48,19 @@ tube.controller('DeviceCtrl', ['$scope', '$routeParams', 'tokenFactory', 'device
     console.log(hls);
   }
 
-  $scope.vodM3U8 = function(starttime, endtime){
-    console.log(starttime, endtime);
+  $scope.vodM3U8 = function(udid, starttime, endtime){
+    console.log(udid, starttime, endtime);
+
+    tokenFactory.getToken.success(function(token){
+      deviceFactory.shift_play_address(token.access_token, udid, starttime, endtime).success(function(data) {
+
+        console.log(data);
+
+      }).error(function(){
+        console.log('error')
+      });
+    });
+
   }
 
 }]);

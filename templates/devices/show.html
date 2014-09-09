@@ -4,7 +4,9 @@
   </ul>
   <div class="tab-content">
     <div class="tab-pane">
-      <button type="button" ng-click="">Push</button>
+
+      <button type="button" ng-click="push(current_device.udid)" ng-hide="{{current_device.state == 'disconnected'}}">Push</button>
+
       <a class="button success" ng-click="live_rtmp(current_device.live.RTMP)">RTMP</a>
       <a class="button success" ng-click="live_hls(current_device.live.HLS)">HLS/M3U8</a>
     </div>
@@ -21,7 +23,7 @@
     <div class="tab-pane" id="vod-list">
       <div class="group">
 
-        <a ng-repeat="item in current_device.list" ng-click="vodM3U8(item['starttime'], item['endtime'])">
+        <a ng-repeat="item in current_device.list" ng-click="vodM3U8(current_device.udid, item['starttime'], item['endtime'])" href="#">
           <i class="icon clock-o"></i>
           {{item["starttime"] | date : 'yyyy-MM-dd HH:mm:ss'}} - {{item["endtime"] | date : 'yyyy-MM-dd HH:mm:ss'}}
         </a>
