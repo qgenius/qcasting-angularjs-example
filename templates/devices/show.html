@@ -13,7 +13,8 @@
         <li><a ng-href="#/devices"><i class="icon home"></i>&nbsp;</a></li>
         <li class="active"><a href="#">设备</a></li>
       </ul>
-      <div class="alert danger">
+
+      <div class="alert {{device.state == 'disconnected' ? 'danger' : 'success'}}">
         <i class="icon video-camera"></i> <span ng-bind="device.udid"></span>
         <span class="righted label {{device.state}}" ng-bind="device.state"></span>
       </div>
