@@ -60,9 +60,10 @@ tube.controller('DeviceDetailCtrl', ['$scope', '$routeParams', '$sce', 'tokenFac
       deviceFactory.info(token.access_token, $routeParams.udid).success(function(data) {
         var device = data;
             device['udid'] = $routeParams.udid;
-        $scope.device = device;
 
-        $scope.pushStatusText = "Push";
+        $scope.pushStatusText = device.state == "connected" ? "Pushing" : "Push";
+
+        $scope.device = device;
       });
     });
   }

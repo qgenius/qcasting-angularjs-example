@@ -2,11 +2,29 @@
 
 var tube = angular.module("tube");
 
-tube.factory('deviceFactory', ['$http', 'base64', 'servicesConfig', function($http, base64, servicesConfig) {
+tube.factory('deviceFactory', ['$http', '$q', 'base64', 'servicesConfig', function($http, $q, base64, servicesConfig) {
 
   var url = servicesConfig.demoService + "/api/v1/devices";
 
   return {
+    // getDeviceInfo: function () {
+
+    //   //定义一个回调服务
+    //   var deferred = $q.defer();
+
+    //   //此时获取的是单个数据源
+    //   $http.get('/API/Values').success(function (result) {
+
+    //     deferred.resolve(result); //将结果委托回调函数
+
+    //   }).error(function (result) {
+    //     debugger;
+    //   });
+
+    //   //返回回调函数结果
+    //   return deferred.promise;
+    // },
+
     devices: function(token){
       return $http.get(url, { headers: {'Authorization' : ' bearer ' + token} });
     },
