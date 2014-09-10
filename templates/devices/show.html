@@ -24,10 +24,10 @@
       <div class="tab-content">
         <div class="tab-pane">
 
-          <button type="button" ng-click="push(device.udid)" ng-hide="{{device.state == 'disconnected'}}">Push</button>
+          <button type="button" ng-click="push(device.udid)">Push</button>
 
-          <a class="button success" ng-click="live_rtmp(device.live.RTMP)">RTMP</a>
-          <a class="button success" ng-click="live_hls(device.live.HLS)">HLS/M3U8</a>
+          <button type="button" class="success" ng-disabled="device.state == 'disconnected'" ng-click="live_rtmp(device.live.RTMP)">RTMP</button>
+          <button type="button" class="success" ng-disabled="device.state == 'disconnected'" ng-click="live_hls(device.live.HLS)">HLS/M3U8</button>
         </div>
       </div>
 
