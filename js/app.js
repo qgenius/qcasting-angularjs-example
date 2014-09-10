@@ -13,9 +13,8 @@ tube.config(function($routeProvider, $httpProvider) {
 
 // Config constant
 tube.constant('servicesConfig', (function(){
-  var protocol = 'http://';
   return {
-    demoService: protocol + '115.238.155.186',
-    playerPath : "/player/sewise.player.min.js"
+    demoService: "http://qcasting.qgenius.com",
+    playerPath : "../player/sewise.player.min.js"
   }
 })());
