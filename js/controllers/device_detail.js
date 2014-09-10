@@ -30,7 +30,7 @@ tube.controller('DeviceDetailCtrl', ['$scope', '$routeParams', '$sce', 'tokenFac
         buffer: 5,
         claritybutton: "disable",
         skin: (server == "vod" ? "vodWhite" : "liveWhite"),
-        logo: "/img/qiniu-48x35.png",
+        logo: "http://demo.qgenius.com/qcasting/img/qiniu-48x35.png",
         // poster: "images/television-test-screen-no-signal-vector-illustration.jpg",
         // topbardisplay: "disable",
         playername: "Qiniu Multimedia Player",
