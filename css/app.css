@@ -35,18 +35,5 @@ body{
   background: #FFF;
 }
 
-#live-wrap{
-
-}
-
-#vod-wrap{
-
-}
-
-#vod-list{
-
-}
-
-.register{ background-color: #0085f0}
-.connect{ background-color: #81C735}
-.stop{ }
+.label.disconnected{ /*background-color: #0085f0*/}
+.label.connected{ background-color: #81C735}
