@@ -5,6 +5,20 @@ var tube = angular.module("tube");
 tube.controller('DeviceDetailCtrl', ['$scope', '$routeParams', '$sce', 'tokenFactory', 'deviceFactory', 'servicesConfig',
   function($scope, $routeParams, $sce, tokenFactory, deviceFactory, servicesConfig){
 
+  window.onStop = function(name){
+    console.log("Player on stop");
+    init();
+  }
+
+  window.onPause = function(name){
+    console.log("Player on pause");
+    init();
+  }
+
+  window.onStart = function(name){
+    console.log("Player on start");
+  }
+
   // server: vod 点播, live 直播
   function addPlayer(server, url, type, title){
 
@@ -39,6 +53,7 @@ tube.controller('DeviceDetailCtrl', ['$scope', '$routeParams', '$sce', 'tokenFac
     }
   }
 
+  $scope.pushStatusText = "Push";
 
   var init = function(){
     tokenFactory.getToken.success(function(token){
@@ -46,6 +61,8 @@ tube.controller('DeviceDetailCtrl', ['$scope', '$routeParams', '$sce', 'tokenFac
         var device = data;
             device['udid'] = $routeParams.udid;
         $scope.device = device;
+
+        $scope.pushStatusText = "Push";
       });
     });
   }
@@ -54,6 +71,7 @@ tube.controller('DeviceDetailCtrl', ['$scope', '$routeParams', '$sce', 'tokenFac
 
 
   $scope.push = function(udid){
+    $scope.pushStatusText = "Pushing"
     tokenFactory.getToken.success(function(token){
       deviceFactory.push_address(token.access_token, udid).success(function(data) {
         deviceFactory.pushStart(token.access_token, data['url']).success(function(data) {

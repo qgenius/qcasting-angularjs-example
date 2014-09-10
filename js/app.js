@@ -15,6 +15,7 @@ tube.config(function($routeProvider, $httpProvider) {
 tube.constant('servicesConfig', (function(){
   return {
     demoService: "http://qcasting.qgenius.com",
+    // playerPath : "/player/sewise.player.min.js"
     playerPath : "/qcasting/player/sewise.player.min.js"
   }
 })());
