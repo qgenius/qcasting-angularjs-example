@@ -25,7 +25,7 @@
       <div class="tab-content">
         <div class="tab-pane">
 
-          <button type="button" ng-click="push(device.udid)">Push</button>
+          <button type="button" class="primary" ng-click="push(device.udid)" ng-disabled="device.state == 'connected'">推流</button>
 
           <button type="button" class="success" ng-disabled="device.state == 'disconnected'" ng-click="live_rtmp(device.live.RTMP)">RTMP</button>
           <button type="button" class="success" ng-disabled="device.state == 'disconnected'" ng-click="live_hls(device.live.HLS)">HLS/M3U8</button>
