@@ -13,9 +13,9 @@
         </ul>
         <div class="tab-content">
           <div class="group">
-            <a ng-repeat="device in devices" ng-href="#/devices/{{device.udid}}" ng-click="getInfo(device.udid)">
-              <i class="icon video-camera"></i> <span ng-bind="device.udid"></span>
-              <span class="righted label {{device.state}}" ng-bind="device.state"></span>
+            <a ng-repeat="device in devices" ng-href="#/devices/{{device.id}}">
+              <i class="icon video-camera"></i> <span ng-bind="device.id"></span>
+              <span class="righted label {{device.status}}" ng-bind="device.status"></span>
             </a>
           </div>
         </div>

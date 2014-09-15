@@ -14,9 +14,9 @@
         <li class="active"><a href="#">设备</a></li>
       </ul>
 
-      <div class="alert {{device.state == 'disconnected' ? 'danger' : 'success'}}">
-        <i class="icon video-camera"></i> <span ng-bind="device.udid"></span>
-        <span class="righted label {{device.state}}" ng-bind="device.state"></span>
+      <div class="alert {{device.status == 'disconnected' ? 'danger' : 'success'}}">
+        <i class="icon video-camera"></i> <span ng-bind="device.id"></span>
+        <span class="righted label {{device.status}}" ng-bind="device.status"></span>
       </div>
 
       <ul class="tabs">
@@ -25,10 +25,10 @@
       <div class="tab-content">
         <div class="tab-pane">
 
-          <button type="button" class="primary" ng-click="push(device.udid)" ng-disabled="device.state == 'connected'">{{pushStatusText}}</button>
+          <button type="button" class="primary" ng-click="push(device.id)" ng-disabled="device.status == 'connected'">{{pushStatusText}}</button>
 
-          <button type="button" class="success" ng-disabled="device.state == 'disconnected'" ng-click="live_rtmp(device.live.RTMP)">RTMP</button>
-          <button type="button" class="success" ng-disabled="device.state == 'disconnected'" ng-click="live_hls(device.live.HLS)">HLS/M3U8</button>
+          <button type="button" class="success" ng-disabled="device.status == 'disconnected'" ng-click="live_rtmp(device.live.RTMP)">RTMP</button>
+          <button type="button" class="success" ng-disabled="device.status == 'disconnected'" ng-click="live_hls(device.live.HLS)">HLS/M3U8</button>
         </div>
       </div>
 
@@ -41,7 +41,7 @@
         <div class="tab-pane" id="vod-list">
           <div class="group">
 
-            <a ng-repeat="item in device.list" ng-click="vodM3U8(device.udid, item['starttime'], item['endtime'])" href="javascript:;">
+            <a ng-repeat="item in device.list" ng-click="vodM3U8(device.id, item['starttime'], item['endtime'])" href="javascript:;">
               <i class="icon clock-o"></i>
               {{item["starttime"] | date : 'yyyy-MM-dd HH:mm:ss'}} - {{item["endtime"] | date : 'yyyy-MM-dd HH:mm:ss'}}
             </a>
