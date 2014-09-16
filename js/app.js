@@ -4,7 +4,7 @@ var tube = angular.module("tube", ['ngRoute', 'ab-base64']);
 
 tube.config(function($routeProvider, $httpProvider) {
   $routeProvider.when('/devices', { templateUrl: 'templates/devices/index.html', controller:'DeviceCtrl'});
-  $routeProvider.when('/devices/:id', { templateUrl: 'templates/devices/show.html', controller:'DeviceDetailCtrl' });
+  $routeProvider.when('/devices/:udid', { templateUrl: 'templates/devices/show.html', controller:'DeviceDetailCtrl' });
   $routeProvider.otherwise({redirectTo: '/devices'});
 
   // $httpProvider.defaults.useXDomain = true;
