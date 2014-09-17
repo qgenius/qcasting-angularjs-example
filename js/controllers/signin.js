@@ -2,35 +2,43 @@
 
 var tube = angular.module("tube");
 
-tube.controller('SigninCtrl', ['$scope', '$cookieStore', '$cookies', 'tokenFactory', 'deviceFactory', 'servicesConfig',
-  function($scope, $cookieStore, $cookies, tokenFactory, deviceFactory, servicesConfig){
+tube.controller('SigninCtrl', ['$scope', '$location', '$cookies', 'base64', 'tokenFactory', 'deviceFactory', 'servicesConfig',
+  function($scope, $location, $cookies, base64, tokenFactory, deviceFactory, servicesConfig){
 
-  $scope.devices = [];
+  var accessToken = tokenFactory.getAccessToken();
 
-  tokenFactory.getToken.success(function(token){
+  console.log(accessToken);
 
-    // $cookieStore.put('token', {
-    //   access_token: token.access_token,
-    //   expires_in: token.expires_in,
-    //   refresh_token: token.refresh_token,
-    //   scope: token.scope,
-    //   token_type: token.token_type
-    // });
+  if (accessToken) {
+    $location.path("/devices");
+  }else{
 
-    // var date = new Date();
+    $scope.submit = function(){
+      // email: qcasting-demo@qgenius.com
+      // password: demo
 
-    // date.setDate(date.getDate()+7);
+      tokenFactory.getToken($scope.email, $scope.password).success(function(token){
 
-    // date.setMilliseconds(token.expires_in);
+        console.log($scope.email, $scope.password);
 
-    // console.log(token, date);
+        var date = new Date();
+        date.setTime(token.expires_in * 1000);
 
-    // document.cookie = 'token_access_token=' + token.access_token + ';expires=' + date;
+        document.cookie = 'token_access_token=' + token.access_token + ';expires=' + date;
 
-    // console.log($cookieStore.get('token'));
-    // console.log($cookieStore.get('token_access_token'));
+        var expire = new Date((new Date()).getTime() + 365*24*60*60*1000);
+        expire = "; expires=" + expire.toGMTString();
 
-    console.log( $cookies.token_access_token );
-  });
+        document.cookie = 'token_refresh_token=' + token.refresh_token + expire;
+
+        $cookies.access_token = token.access_token;
+
+        // document.cookie = 'token_scope=' + base64.encode(token.scope) + ';expires=' + date;
+        // document.cookie = 'token_token_type=' + token.token_type + ';expires=' + date;
+        $location.path("/devices");
+      });
+    }
+  }
+
 
 }]);

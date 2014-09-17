@@ -7,19 +7,23 @@
   <div class="column">
     <div id="sidebar">
 
-      <div class="field">
-        <label for="email-basic">Your email *</label>
-        <input type="email" name="email" id="email-basic" placeholder="Email" />
-      </div>
+      <form ng-submit="submit()">
+        <div class="field">
+          <label for="email-basic">Your email *</label>
+          <input ng-model="email" type="email" name="email" id="email-basic" placeholder="Email" />
+          <span>eg. qcasting-demo@qgenius.com</span>
+        </div>
 
-      <div class="field">
-        <label for="password-basic">Password *</label>
-        <input type="password" id="password-basic" placeholder="Password">
-      </div>
+        <div class="field">
+          <label for="password-basic">Password *</label>
+          <input ng-model="password" type="password" id="password-basic" placeholder="Password">
+          <span>eg. demo</span>
+        </div>
 
-      <div class="field">
-        <button type="submit" class="success">Signin</button>
-      </div>
+        <div class="field">
+          <button type="submit" class="success">Signin</button>
+        </div>
+      </form>
 
     </div>
   </div>

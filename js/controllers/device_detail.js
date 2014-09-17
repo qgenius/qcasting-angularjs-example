@@ -2,8 +2,14 @@
 
 var tube = angular.module("tube");
 
-tube.controller('DeviceDetailCtrl', ['$scope', '$routeParams', '$sce', 'tokenFactory', 'deviceFactory', 'servicesConfig',
-  function($scope, $routeParams, $sce, tokenFactory, deviceFactory, servicesConfig){
+tube.controller('DeviceDetailCtrl', ['$scope', '$location', '$routeParams', 'tokenFactory', 'deviceFactory', 'servicesConfig',
+  function($scope, $location, $routeParams, tokenFactory, deviceFactory, servicesConfig){
+
+  var accessToken = tokenFactory.getAccessToken();
+
+  if (!accessToken) {
+    $location.path("/");
+  }
 
   window.onStop = function(name){
     console.log("Player on stop");
@@ -56,15 +62,13 @@ tube.controller('DeviceDetailCtrl', ['$scope', '$routeParams', '$sce', 'tokenFac
   $scope.pushStatusText = "Push";
 
   var init = function(){
-    tokenFactory.getToken.success(function(token){
-      deviceFactory.info(token.access_token, $routeParams.udid).success(function(data) {
-        var device = data;
-            device['udid'] = $routeParams.udid;
+    deviceFactory.info(accessToken, $routeParams.udid).success(function(data) {
+      var device = data;
+          device['udid'] = $routeParams.udid;
 
-        $scope.pushStatusText = device.status == "connected" ? "Pushing" : "Push";
+      $scope.pushStatusText = device.status == "connected" ? "Pushing" : "Push";
 
-        $scope.device = device;
-      });
+      $scope.device = device;
     });
   }
 
@@ -73,12 +77,10 @@ tube.controller('DeviceDetailCtrl', ['$scope', '$routeParams', '$sce', 'tokenFac
 
   $scope.push = function(udid){
     $scope.pushStatusText = "Pushing"
-    tokenFactory.getToken.success(function(token){
-      deviceFactory.push_address(token.access_token, udid).success(function(data) {
-        deviceFactory.pushStart(token.access_token, data['url']).success(function(data) {
-          console.log(data);
-          init();
-        });
+    deviceFactory.push_address(accessToken, udid).success(function(data) {
+      deviceFactory.pushStart(accessToken, data['url']).success(function(data) {
+        console.log(data);
+        init();
       });
     });
   }
@@ -95,10 +97,8 @@ tube.controller('DeviceDetailCtrl', ['$scope', '$routeParams', '$sce', 'tokenFac
 
 
   $scope.vodM3U8 = function(udid, starttime, endtime){
-    tokenFactory.getToken.success(function(token){
-      deviceFactory.shift_play_address(token.access_token, udid, starttime, endtime).success(function(data) {
-        addPlayer('vod', data['url'], 'm3u8', 'M3U8 vod');
-      });
+    deviceFactory.shift_play_address(accessToken, udid, starttime, endtime).success(function(data) {
+      addPlayer('vod', data['url'], 'm3u8', 'M3U8 vod');
     });
   }
 
