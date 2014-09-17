@@ -19,8 +19,6 @@ tube.controller('SigninCtrl', ['$scope', '$location', '$cookies', 'base64', 'tok
 
       tokenFactory.getToken($scope.email, $scope.password).success(function(token){
 
-        console.log($scope.email, $scope.password);
-
         var date = new Date();
         date.setTime(token.expires_in * 1000);
 
@@ -36,6 +34,8 @@ tube.controller('SigninCtrl', ['$scope', '$location', '$cookies', 'base64', 'tok
         // document.cookie = 'token_scope=' + base64.encode(token.scope) + ';expires=' + date;
         // document.cookie = 'token_token_type=' + token.token_type + ';expires=' + date;
         $location.path("/devices");
+      }).error(function(message){
+        alert(message.error_description);
       });
     }
   }
