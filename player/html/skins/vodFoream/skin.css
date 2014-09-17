@@ -202,8 +202,8 @@ div.sewise-player-ui div.controlbar ul.controlbar-btns div.controlbar-totaltime 
 /*logo*/
 div.sewise-player-ui div.logo {
 	position: absolute;
-	right: 10px;
-	top: 5px;
+	left: 15px;
+	top: 15px;
 }
 div.sewise-player-ui div.logo a.logo-icon {
 	display: block;
