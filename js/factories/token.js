@@ -11,8 +11,7 @@ tube.factory('tokenFactory', ['$http', '$cookies', 'base64', 'servicesConfig', f
       return $http.get(servicesConfig.demoService + "/token?grant_type=password&scope=*,scope://qcasting/_demo&email="+email+"&password="+password);
     },
     getAccessToken: function(){
-      // return $cookies.token_access_token;
-      return $cookies.access_token;
+      return $cookies.access_token || $cookies.token_access_token;
     }
   };
 
