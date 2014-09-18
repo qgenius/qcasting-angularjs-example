@@ -24,11 +24,15 @@
       </ul>
       <div class="tab-content">
         <div class="tab-pane">
-
           <button type="button" class="primary" ng-click="push(device.udid)" ng-disabled="device.status == 'connected'">{{pushStatusText}}</button>
-
           <button type="button" class="success" ng-disabled="device.status == 'disconnected'" ng-click="live_rtmp(device.live.RTMP)">RTMP</button>
           <button type="button" class="success" ng-disabled="device.status == 'disconnected'" ng-click="live_hls(device.live.HLS)">HLS/M3U8</button>
+          <br /><br />
+<pre>
+{{device.live.RTMP}}
+
+{{device.live.HLS}}
+</pre>
         </div>
       </div>
 
